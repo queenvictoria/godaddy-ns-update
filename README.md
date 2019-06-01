@@ -1,8 +1,8 @@
-= Update GoDaddy nameservers
+# Update GoDaddy nameservers #
 
 A configurable node script to migrate your domains to an external name server.
 
-== Configuration
+## Configuration
 
 - Create production API keys at GoDaddy.
 - Create a `.env` file with your key and secret
@@ -35,7 +35,8 @@ A configurable node script to migrate your domains to an external name server.
   }
   ```
 
-- Run
+## Usage
+
   ```
   $ node index.js
   ```
