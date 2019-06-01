@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bottleneck": "^2.18.1",
     "dotenv": "^8.0.0",
     "godaddy-api": "Simbioz/godaddy-api",
     "install": "^0.12.2"
