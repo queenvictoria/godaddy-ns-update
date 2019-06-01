@@ -1,29 +1,3 @@
-/*
- * Configure with .env
- * API_KEY=[production godaddy key]
- * API_SECRET=[production godaddy secret]
- * NS_OLD=[string match for old NS]
- * NS_NEW=[string match for new NS]
- *
- * New nameservers in data/domains.json
- * {
- *   "example.com": {
- *     "NS": [
- *       "ns1.example.com",
- *       "ns2.example.com",
- *       "ns3.example.com"
- *.    ],
- *.  },
- *   "example.com": {
- *     "NS": [
- *       "ns1.example.com",
- *       "ns2.example.com",
- *       "ns3.example.com"
- *.    ],
- *.  }
- * }
- */
-
 require('dotenv').config()
 
 // Default GoDaddy API doesn't let us configure OTE environment.
