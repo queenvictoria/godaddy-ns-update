@@ -1,6 +1,6 @@
 {
-  "name": "dns-update",
-  "version": "1.0.0",
+  "name": "godaddy-ns-update",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
