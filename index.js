@@ -1,3 +1,29 @@
+/*
+ * Configure with .env
+ * API_KEY=[production godaddy key]
+ * API_SECRET=[production godaddy secret]
+ * NS_OLD=[string match for old NS]
+ * NS_NEW=[string match for new NS]
+ *
+ * New nameservers in data/domains.json
+ * {
+ *   "example.com": {
+ *     "NS": [
+ *       "ns1.example.com",
+ *       "ns2.example.com",
+ *       "ns3.example.com"
+ *.    ],
+ *.  },
+ *   "example.com": {
+ *     "NS": [
+ *       "ns1.example.com",
+ *       "ns2.example.com",
+ *       "ns3.example.com"
+ *.    ],
+ *.  }
+ * }
+ */
+
 require('dotenv').config()
 
 // Default GoDaddy API doesn't let us configure OTE environment.
@@ -49,21 +75,21 @@ function updateNS(domain, data) {
   limiter.schedule(() => domainsAPI.get({domain: domain})
     .then(res => {
       // Examine it's NS record
-      // If our nameServers are houseoflaudanum then update to our new ones.
-      if ( res.body && res.body.nameServers && res.body.nameServers.pop().toLowerCase().indexOf('houseoflaudanum') > 0 ) {
+      // If our nameServers are the old ones then update to our new ones.
+      if ( res.body && res.body.nameServers && res.body.nameServers.pop().toLowerCase().indexOf(process.env.NS_OLD) > 0 ) {
         const params = {domain: domain, body:{nameServers: data.NS}};
         // Update it's NS record
         return domainsAPI.update(params);
       }
-      else if ( res.body && res.body.nameServers && res.body.nameServers.pop().toLowerCase().indexOf('googledomains') > 0 ) {
+      else if ( res.body && res.body.nameServers && res.body.nameServers.pop().toLowerCase().indexOf(process.env.NS_NEW) > 0 ) {
         console.error(`${domain} already updated. SKIPPING.`);
         return res;
       }
       else {
         if ( res.body && res.body.status)
-          console.error(`${domain} did not use houseoflaudanum NS (${res.body.status}). SKIPPING.`);
+          console.error(`${domain} did not use ${process.env.NS_OLD} NS (${res.body.status}). SKIPPING.`);
         else
-          console.error(`${domain} did not use houseoflaudanum NS. SKIPPING.`);
+          console.error(`${domain} did not use ${process.env.NS_OLD} NS. SKIPPING.`);
         return res;
       }
     })
